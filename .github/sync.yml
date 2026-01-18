@@ -3,7 +3,7 @@ name: Sync to GitLab
 on:
   push:
     branches:
-      - main  # 只有当代码合并进 main 分支时，才触发同步
+      - HJC-part  # 只有当代码合并进 main 分支时，才触发同步
 
 jobs:
   git-mirror:
