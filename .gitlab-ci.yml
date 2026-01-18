@@ -1,0 +1,21 @@
+# 这里的 image 是告诉 GitLab 使用什么环境来运行
+image: busybox
+
+# 定义步骤
+stages:
+  - deploy
+
+# 必须叫 pages，这是 GitLab Pages 的固定要求
+pages:
+  stage: deploy
+  script:
+    # GitLab 只会发布放在名为 'public' 文件夹里的内容
+    # 如果代码在根目录，我们需要把它们搬进 public文件夹
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public # 告诉系统，保留这个文件夹，里面就是网页
+  only:
+    - main # 只有当 main 分支有变动时，才触发自动构建
