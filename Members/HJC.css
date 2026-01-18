@@ -1,0 +1,54 @@
+/* 设置整体背景和字体 */
+body {
+    background-color: #f4f7f6; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* 居中容器 */
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 15px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* 标题样式 */
+h1 {
+    color: #2c3e50;
+    border-bottom: 3px solid #3498db; /* 标题下方的蓝条 */
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+/* 角色标签样式 */
+.role {
+    font-weight: bold;
+    color: #3498db;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+/* 自我介绍段落 */
+p {
+    margin-bottom: 20px;
+}
+
+/* 简单的悬停效果：鼠标移入时容器微微上升 */
+.container:hover {
+    transform: translateY(-5px);
+    transition: 0.3s ease;
+}
+
+/* 响应式：在手机上自动调整边距 */
+@media (max-width: 600px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+}

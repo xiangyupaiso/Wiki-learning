@@ -9,9 +9,14 @@ stages:
 pages:
   stage: deploy
   script:
+<<<<<<< HEAD
     # 这一步最关键：
     # GitLab 只会发布放在名为 'public' 文件夹里的内容
     # 如果你的代码在根目录，我们需要把它们搬进 public 文件夹
+=======
+    # GitLab 只会发布放在名为 'public' 文件夹里的内容
+    # 如果代码在根目录，我们需要把它们搬进 public文件夹
+>>>>>>> 090b96944f4d84c2dfe32f612231cdff5d76943f
     - mkdir .public
     - cp -r * .public
     - mv .public public
