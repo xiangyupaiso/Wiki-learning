@@ -1,0 +1,26 @@
+name: Sync to GitLab
+
+on:
+  push:
+    branches:
+      - main  # 只有当代码合并进 main 分支时，才触发同步
+
+jobs:
+  git-mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Mirror to GitLab
+        uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          # 【重要：修改这里！】
+          # 填入你刚才在 GitLab.com 上建的那个仓库的 SSH 地址
+          # 格式通常是 git@gitlab.com:用户名/仓库名.git
+          target_repo_url: git@gitlab.com:HeJingChen/wiki-learning.git
+          
+          # 这里的名字必须和你刚才在 GitHub Secrets 里填的一模一样
+          ssh_private_key: ${{GITLAB_SSHLPRIVATE KEY}}
