@@ -23,4 +23,4 @@ jobs:
           target_repo_url: git@gitlab.com:HeJingChen/wiki-learning.git
           
           # 这里的名字必须和你刚才在 GitHub Secrets 里填的一模一样
-          ssh_private_key: ${{GITLAB_SSHLPRIVATE KEY}}
+          ssh_private_key: ${{GITLAB_SSH_PRIVATE_KEY}}
