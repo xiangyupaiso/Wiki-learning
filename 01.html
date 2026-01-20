@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简约网页示例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        nav {
+            background-color: #2c3e50;
+            padding: 1rem;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        nav a:hover {
+            color: #3498db;
+        }
+        header {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        header p {
+            font-size: 1.2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        .card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .card p {
+            color: #666;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">关于</a></li>
+            <li><a href="#">服务</a></li>
+            <li><a href="#">联系</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>欢迎访问我的网页</h1>
+        <p>简约设计，舒适体验</p>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h2>网页介绍</h2>
+            <p>这是一个基于 HTML 和 CSS 制作的普通网页示例，包含基础的网页结构和样式，适配不同尺寸的设备。</p>
+        </div>
+        <div class="card">
+            <h2>核心特点</h2>
+            <p>无注释代码、响应式布局、简洁美观的样式，符合现代网页的基础设计规范。</p>
+        </div>
+        <div class="card">
+            <h2>使用说明</h2>
+            <p>直接保存为 HTML 文件，用浏览器打开即可查看效果，可根据需求修改内容和样式。</p>
+        </div>
+    </div>
+    <footer>
+        <p>© 2026 简约网页示例 - 保留所有权利</p>
+    </footer>
+</body>
+</html>
