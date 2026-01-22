@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>lable标签</h1>
+    <p>
+        作用：网页中标签说明文本
+        <br>用label标签绑定文字和表单控件关系，增大表单控件点击范围
+        <br><br>法一：lanel只包裹内容，for属性值与表单控件id属性值相同
+        <br><br>法二：直接嵌套
+    </p>
+    <hr>法一<br>
+    <input type="radio" name="gender" id="man">
+    <label for="man">男</label>
+    <input type="radio" name="gender" id="woman" checked>
+    <label for="woman">女</label>
+    <hr>法二<br>
+    <label >账户：<input type="text" placeholder="请输入用户名"></label>   
+    <br><label >密码：<input type="password" placeholder="请输入密码"></label> 
+</body>
+</html>

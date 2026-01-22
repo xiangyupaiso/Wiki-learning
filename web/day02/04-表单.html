@@ -47,5 +47,47 @@
     <br><br> 单选框<input type="radio">
     <br><br>多选框：<input type="checkbox">
     <br><br>上传文件：<input type="file">
+    <hr>
+    <h2>占位文本（提示信息）</h2>
+    <p>
+        placeholder
+    </p>
+    文本框：<input type="text" placeholder="请输入文本">
+    <br><br>
+    密码框：<input type="password" placeholder="请输入密码">
+    <hr>
+    <h2>单选框</h2>
+    <table border="1">
+        <tr>
+            <th>属性名</th>
+            <th>作用</th>
+            <th>特殊说明</th>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>控件名称</td>
+            <td>一组只能选一个</td>
+        </tr>
+        <tr>
+            <td>checked</td>
+            <td>默认选中</td>
+            <td>属性名和属性值相同，简写为同一单词</td>
+        </tr>
+    </table>
+    性别：
+    <input type="radio" name="gender" checked>男
+    <input type="radio" name="gender">女
+    <hr>
+    <h2>上传文件</h2>
+    <p>
+        multiple:文件多传
+    </p>
+    上传文件：<input type="file" multiple>
+    <hr>
+    <h2>多选框</h2>
+    <p>默认选中（协议）</p>
+    协议/兴趣爱好：
+    爱好1<input type="checkbox" checked>
+    爱好2<input type="checkbox" checked>
 </body>
 </html>
