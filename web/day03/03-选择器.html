@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            color: blue;
+            font-size: 20px;
+        }
+        .red{
+            color: red;
+        }
+        .green{
+            color: green;
+        }
+        .size{
+            font-size: 30px;
+        }
+        #yellow{
+            color: rgb(142, 142, 66);
+        }
+        #red{
+            color: red;
+        }
+        *{
+            color: brown;
+        }
+    </style>
+</head>
+<body>
+    <h1>基础选择器</h1>
+    <ol>
+        <li>标签选择器</li>
+        用标签名命名，选中同名标签设置相同样式
+        <p>p1</p>
+        <p>p2</p>
+        <hr>
+
+        <li>类选择器</li>
+        定义.类名，使用类选择器（class="类名"）
+        <br>差异化设置标签显示效果
+        <h5 class="red">红色类</h5>
+        <h5 class="green size">绿色类+字号类</h5>
+
+        <hr>
+        <li>id选择器</li>
+        差异化设置标签效果，一般配合JS
+        定义#id名，使用id选择器 id="id名"
+        <h4 id="yellow">黄色id</h4>
+        <h4 id="red">红色id</h4>
+        <hr>
+        <li>通配符选择器</li>
+        查找页面所有标签，设置相同样式
+        *，无需调用，浏览器自动查找页面所有标签，设置相同样式
+        (用前三种方式单独修改过样式的，不受影响)
+        <br><strong class="size">应用：开发初期，清除标签默认样式</strong>
+        
+        <hr>
+    </ol>
+</body>
+</html>
