@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iGEM Project 主页</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入图标库（放大镜） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 左侧边栏 -->
+    <div class="sidebar">
+        <!-- 搜索栏 -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search-input" placeholder="搜索 Project...">
+        </div>
+
+        <!-- Project 列表 -->
+        <div class="project-list">
+            <div class="project-item" data-project="project1">Project 1</div>
+            <div class="project-item" data-project="project2">Project 2</div>
+            <div class="project-item" data-project="project3">Project 3</div>
+            <div class="project-item" data-project="project4">Project 4</div>
+            <div class="project-item" data-project="project5">Project 5</div>
+        </div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="main-content">
+        <!-- 顶部三个圆形 -->
+        <div class="top-circles">
+            <div class="circle-card" data-link="https://你的详情页1.html"></div>
+            <div class="circle-card" data-link="https://你的详情页2.html"></div>
+            <div class="circle-card" data-link="https://你的详情页3.html"></div>
+        </div>
+
+        <!-- 下方两个长方形 -->
+        <div class="rectangles-row">
+            <div class="rect-card" data-link="https://你的详情页4.html"></div>
+            <div class="rect-card" data-link="https://你的详情页5.html"></div>
+        </div>
+
+        <!-- 底部通栏 -->
+        <div class="bottom-bar" data-link="https://你的详情页6.html"></div>
+    </div>
+
+    <!-- 引入外部JS文件 -->
+    <script src="script.js"></script>
+</body>
+</html>

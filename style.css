@@ -1,0 +1,138 @@
+/* style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 左侧边栏 */
+.sidebar {
+    width: 280px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 搜索框容器 */
+.search-container {
+    position: relative;
+}
+
+/* 放大镜图标 */
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 18px;
+}
+
+/* 搜索输入框 */
+#search-input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+    #search-input:focus {
+        outline: none;
+        border-color: #0366d6;
+        box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.1);
+    }
+
+/* Project 列表项 */
+.project-item {
+    padding: 12px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 16px;
+    color: #333;
+}
+
+    .project-item:hover {
+        background-color: #f6f8fa;
+        color: #0366d6;
+        transform: translateX(3px);
+    }
+
+/* 主内容区域 */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* 圆形卡片 */
+.top-circles {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.circle-card {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+    .circle-card:hover {
+        transform: scale(1.03);
+    }
+
+/* 长方形卡片 */
+.rectangles-row {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.rect-card {
+    width: 300px;
+    height: 200px;
+    background: #ffffff;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+    .rect-card:hover {
+        transform: scale(1.03);
+    }
+
+/* 底部通栏 */
+.bottom-bar {
+    width: 80%;
+    height: 100px;
+    background: #ffffff;
+    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+    .bottom-bar:hover {
+        transform: scale(1.01);
+    }
