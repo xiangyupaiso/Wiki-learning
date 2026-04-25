@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义本地光标</title>
+    <style>
+        /* 
+           重点在这里！
+           1. url() 里只需要写文件名（因为图片和html在同级目录）
+           2. '0 0' 是光标的点击热点坐标 (x y)，通常放在左上角。
+              如果你的图片是十字准星，可能需要设为 '16 16' (假设图片是32x32)。
+           3. 必须加上 ', auto' 或 ', default' 作为后备，否则无效！
+        */
+        body {
+            cursor: url('./cursor_o0fzhps6ur4j_32.png') 0 0, auto;
+            
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: sans-serif;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        /* 鼠标悬停在按钮上时，强制保持自定义图片，或者你可以换回 pointer */
+        .btn:hover {
+            /* 如果想在按钮上也显示你的图片，就把这行取消注释 */
+            /* cursor: url('./cursor_o0fzhps6ur4j_32.png') 0 0, pointer; */
+            
+            /* 如果想在按钮上变回小手，就用这个： */
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1>看！光标变了吗？</h1>
+        <p>确保图片文件就在 HTML 文件旁边。</p>
+        <button class="btn" onclick="toggleCursor()">点击切换回普通光标</button>
+    </div>
+
+    <script>
+        let isCustom = true;
+
+        function toggleCursor() {
+            if (isCustom) {
+                // 用 JS 恢复默认
+                document.body.style.cursor = 'default';
+            } else {
+                // 用 JS 重新设置回你的图片
+                document.body.style.cursor = "url('./cursor_o0fzhps6ur4j_32.png') 0 0, auto";
+            }
+            isCustom = !isCustom;
+        }
+    </script>
+</body>
+</html>
