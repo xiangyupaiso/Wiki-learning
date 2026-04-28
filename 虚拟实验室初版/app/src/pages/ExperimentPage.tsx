@@ -32,6 +32,9 @@ export function ExperimentPage({ experimentId, onBack, onHome }: ExperimentPageP
   // 在 ExperimentPage 组件顶部，与其他 useState 一起添加
 const [lampClickable, setLampClickable] = useState(false);   // 控制酒精灯(图6)是否高亮可点
 const [item3Clickable, setItem3Clickable] = useState(false); // 控制图3是否高亮可点
+const [lampLit, setLampLit] = useState(false);      // 酒精灯是否已点燃（控制图片26.png）
+const [coolingMessage, setCoolingMessage] = useState(''); // 冷却提示文字
+const [loopClickable, setLoopClickable] = useState(false); // 接种环是否高亮可点
   // 坐标调试工具
   useEffect(() => {
     const handleDebugClick = (e: MouseEvent) => {
@@ -97,12 +100,12 @@ const [item3Clickable, setItem3Clickable] = useState(false); // 控制图3是否
       return;
     }
     // 2. 点击底座滴管（图7）
-    if (itemId === 'item-7' && isSlidePrepared && !isDropperUsed) {
-      setIsDropperUsed(true);
-      return;
-    }
+    if (itemId === 'item-7' && currentStep === 2 && !completedSteps.includes(2) && isSlidePrepared && !isDropperUsed) {
+  setIsDropperUsed(true);
+  return;
+}
     // 3. 点击悬浮滴管（图22）-> 移动到瓶子变成图23
-    if (itemId === 'item-22' && isDropperUsed && !isDropperInserted && !isDropperMoving) {
+    if (itemId === 'item-22' && isDropperUsed && !isDropperInserted && !isDropperMoving && !completedSteps.includes(2)) {
       setIsAnimating(true);
       gsap.to("#item-22", {
         left: "82.2%",
@@ -117,7 +120,7 @@ const [item3Clickable, setItem3Clickable] = useState(false); // 控制图3是否
       return;
     }
     // 4. 点击图23（已插入的滴管）-> 移动到中央变成图25，同时移动镊子
-    if (itemId === 'item-22' && isDropperUsed && isDropperInserted && !isDropperMoving) {
+    if (itemId === 'item-22' && isDropperUsed && isDropperInserted && !isDropperMoving && !completedSteps.includes(2)) {
   setIsDropperMoving(true);
   setIsAnimating(true);
   
@@ -164,20 +167,124 @@ const [item3Clickable, setItem3Clickable] = useState(false); // 控制图3是否
 }
 
     if (itemId === 'item-6') {
-  if (!lampClickable) return;          // 未高亮时不可点击
-  setLampClickable(false);             // 立即取消高亮，防止重复
-  
-  // 执行酒精灯相关动画（例如点亮或移动火焰图5）
+  if (!lampClickable || isAnimating) return;   // 必须高亮且未动画中
+  setLampClickable(false);                     // 取消高亮，防止重复点
+  setLampLit(true);                            // 切换到点燃图片
   setIsAnimating(true);
-  gsap.to("#item-5", {                 // 图5可能是火焰
-    left: "54%", top: "62%",
-    duration: 0.6,
-    ease: "power2.inOut",
+
+  // 获取接种环元素
+  const loop = document.querySelector("#item-5");
+  if (!loop) {
+    setIsAnimating(false);
+    return;
+  }
+
+  // 1. 移动接种环到酒精灯火焰上方（假设火焰位置在(54%,62%)，接种环原位置在(19%,82%)）
+  const startX = "13%";
+  const startY = "82%";
+  const flameX = "50%";
+  const flameY = "62%";
+
+  const tl = gsap.timeline({
     onComplete: () => {
-      setIsAnimating(false);
-      setItem3Clickable(true);         // 酒精灯操作完成，高亮图3，等待点击
+      // 左右移动三次（每次0.3秒，左右偏移10%）
+      gsap.to(loop, {
+        xPercent: -100, duration: 0.2, repeat: 5, yoyo: true,
+        ease: "power1.inOut",
+        onComplete: () => {
+          // 最后静止到酒精灯旁边（比如酒精灯右侧偏下）
+          gsap.to(loop, {
+            left: "55%", top: "65%", duration: 0.5,
+            ease: "back.out(1)",
+            onComplete: () => {
+              setIsAnimating(false);
+              // 显示冷却提示文字
+              setCoolingMessage("冷却数秒");
+              setLoopClickable(true); // 接种环操作完成，高亮，等待点击
+              // 可选：5秒后自动隐藏文字
+               setTimeout(() => setCoolingMessage(''), 2000);
+               gsap.set(loop, { clearProps: "transform" });
+               setLoopClickable(true);
+            }
+          });
+        }
+      });
     }
   });
+
+  // 先移动接种环到火焰位置
+  tl.to(loop, {
+    left: flameX, top: flameY, duration: 0.6,
+    ease: "power2.inOut"
+  }, 0);
+  
+  return;
+}
+if (itemId === 'item-5') {
+  if (!loopClickable || isAnimating) return; // 必须高亮且未动画中
+  setLoopClickable(false);
+  setCoolingMessage(''); // 清除冷却提示
+
+  setIsAnimating(true);
+
+  // 1. 替换镊子图片为 27.png
+  const tweezers = document.querySelector("#tweezers") as HTMLImageElement;
+  if (tweezers) tweezers.src = "/images/experiment2/27.png";
+
+  // 2. 删除滴管图片 25.png（隐藏 item-22）
+  const dropper = document.querySelector("#item-22") as HTMLImageElement;
+  if (dropper) dropper.style.display = "none";
+
+  // 3. 接种环移动到培养皿并划线
+  const loop = document.querySelector("#item-5") as HTMLImageElement;
+  const dish = document.querySelector("#petri-dish") as HTMLElement;
+  if (!loop || !dish) {
+    setIsAnimating(false);
+    return;
+  }
+
+  // 获取培养皿的中心位置（百分比）
+  const dishLeft = 37; // %，根据实际布局调整
+  const dishTop = 63;  // %
+  // 接种环移动到培养皿上方稍微偏下（模拟接触琼脂面）
+  const loopOnDishLeft = dishLeft + 5;  // 偏移几个百分点，让接种环位于培养皿中央偏左
+  const loopOnDishTop = dishTop + 2;
+
+  // 动画序列
+  const tl = gsap.timeline({
+    onComplete: () => {
+      // 在培养皿上左右轻移三次（模拟划线）
+      gsap.to(loop, {
+        xPercent: -30, duration: 0.2, repeat: 5, yoyo: true,
+        ease: "power1.inOut",
+        onComplete: () => {
+          // 移回中央或停在培养皿中心
+          gsap.to(loop, {
+            left: `${loopOnDishLeft}%`, top: `${loopOnDishTop}%`,
+            xPercent: -50, yPercent: -50,
+            duration: 0.3,
+            onComplete: () => {
+              setIsAnimating(false);
+              // 标记步骤二完成，允许进入完成界面或下一步
+              setCompletedSteps(prev => [...prev, 2]);
+              setLoopClickable(true);
+              // 如果需要自动进入下一步，可以加上：
+              // setCurrentStep(3);
+              // 如果希望显示“实验完成”提示，可以设置一个完成状态变量
+            }
+          });
+        }
+      });
+    }
+  });
+
+  // 先移动接种环到培养皿中心（视觉上覆盖培养皿）
+  tl.to(loop, {
+    left: `${loopOnDishLeft}%`, top: `${loopOnDishTop}%`,
+    xPercent: -50, yPercent: -50,
+    duration: 0.6,
+    ease: "power2.inOut"
+  }, 0);
   return;
 }
     return;
@@ -280,14 +387,18 @@ const [item3Clickable, setItem3Clickable] = useState(false); // 控制图3是否
   `}
   onClick={() => handleItemClick('item-3')}
 />
+{/* 接种环 - 图片5 */}
 <img 
   id="item-5" 
   src="/images/experiment2/5.png" 
-  className="absolute left-[19%] top-[82%] w-[4%] -rotate-12 pointer-events-auto z-30"
+  className={`absolute left-[19%] top-[82%] w-[4%] -rotate-12 pointer-events-auto cursor-pointer transition-all z-30
+    ${loopClickable ? 'drop-shadow-[0_0_20px_rgba(255,255,0,0.9)] scale-110' : ''}
+  `}
+  onClick={() => handleItemClick('item-5')}
 />
-               <img 
+              <img 
   id="item-6" 
-  src="/images/experiment2/6.png" 
+  src={lampLit ? "/images/experiment2/26.png" : "/images/experiment2/6.png"} 
   className={`absolute left-[48%] top-[68%] w-[7%] pointer-events-auto cursor-pointer transition-all
     ${(experiment.id === 'exp2' && lampClickable) 
       ? 'drop-shadow-[0_0_30px_#ffcc00] z-40 scale-110' 
@@ -333,7 +444,11 @@ const [item3Clickable, setItem3Clickable] = useState(false); // 控制图3是否
   />
 )}
             </div>
-
+{coolingMessage && (
+  <div className="absolute bottom-[15%] left-1/2 -translate-x-1/2 z-50 bg-black/80 text-white px-4 py-2 rounded-full text-sm animate-fade-in pointer-events-none">
+    {coolingMessage}
+  </div>
+)}
             {/* 观察菌落详情 */}
             {showColonyDetail && (
               <div className="absolute inset-0 z-[100] flex items-center justify-center pointer-events-auto">
