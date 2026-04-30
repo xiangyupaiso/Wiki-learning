@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- 1. 引入 Rive 库 (放在 head 最下面) -->
+    <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
     <style>
+        /* 给 Rive 动画加个简单的居中样式 */
+        #rive-canvas {
+            display: block;
+            margin: 30px auto;
+            border: 2px dashed #ccc;
+        }
+
+        /* 以下是你原有的样式 */
         p{
             color: blue;
             font-size: 20px;
@@ -59,5 +69,20 @@
         
         <hr>
     </ol>
+
+    <!-- 2. Rive 动画容器 (放在你原有内容的下方) -->
+    <canvas id="rive-canvas" width="600" height="450"></canvas>
+
+    <!-- 3. 初始化 Rive 脚本 (放在 body 最底部) -->
+    <script>
+        new rive.Rive({
+            // 注意：因为 html 在 day03 文件夹里，riv 在外面，所以路径加了 ../
+            src: '../riv/26908-50574-cloner-scripted-path-effect.riv',
+            canvas: document.getElementById('rive-canvas'),
+            autoplay: true,
+            onLoad: () => console.log("✅ Rive动画加载成功！"),
+            onError: (err) => console.error("❌ 加载失败:", err)
+        });
+    </script>
 </body>
 </html>
